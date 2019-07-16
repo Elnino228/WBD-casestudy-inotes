@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View note</title>
+</head>
+<body>
+<p>
+    <a href="/notes">Note list</a>
+</p>
+<form th:action="@{/notes/view}" th:object="${note}" method="post">
+    <input th:type="hidden" name="id" th:field="*{id}">
+    <table>
+        <tr>
+            <td>Title:</td>
+            <td th:text="${note.getTitle()}"></td>
+        </tr>
+        <tr>
+            <td>Type:</td>
+            <td th:text="${note.getType().getName()}"></td>
+        </tr>
+        <tr>
+            <td>Content:</td>
+            <td th:text="${note.getContent()}"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

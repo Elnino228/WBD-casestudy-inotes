@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="/notes/create">Create new note</a>
+<h1>Notes</h1>
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<form>
+    Search:
+    <input name="search" type="text"/>
+    <input type="submit" value="Search"/>
+</form><br/>
+<table border="1">
+    <tr>
+        <th>Title</th>
+        <th>Type</th>
+        <th>Action</th>
+    </tr>
+    <th:block th:each="note : ${notes}">
+        <tr>
+            <td th:text="${note.title}"></td>
+            <td th:text="${note.type.name}"></td>
+            <td>
+                <a th:href="@{/notes/view/__${note.id}__}">View</a> |
+                <a th:href="@{/notes/edit/__${note.id}__ }">Edit</a> |
+                <a th:href="@{/notes/delete/__${note.id}__}">Delete</a>
+            </td>
+        </tr>
+    </th:block>
+</table>
+<div>
+    <a th:href="@{'/notes'(page=${notes.number - 1})}" th:if="${notes.hasPrevious()}">Previous</a>
+    <span th:text="${notes.number + 1}"></span>/<span th:text="${notes.totalPages}"></span>
+    <a th:href="@{'/notes'(page=${notes.number + 1})}" th:if="${notes.hasNext()}">Next</a>
+</div>
+</body>
+</html>
