@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View type</title>
+</head>
+<style>
+    * {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+    }
+    th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: center;
+        background-color: #4CAF50;
+        color: white;
+    }
+    table {
+        width: 50%;
+        text-align: center;
+    }
+
+</style>
+<body>
+<h1>View type: <span th:text="${type.name}"></span></h1>
+<a href="/notes/">Note list</a>
+<br>
+<br>
+<table border="1">
+    <tr>
+        <th>Title</th>
+        <th>Type</th>
+        <th>Content</th>
+    </tr>
+    <th:block th:each="note : ${notes}">
+        <tr>
+            <td th:text="${note.title}"></td>
+            <td th:text="${note.type.name}"></td>
+            <td th:text="${note.content}"></td>
+        </tr>
+    </th:block>
+</table>
+</body>
+</html>

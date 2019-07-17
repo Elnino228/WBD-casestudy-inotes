@@ -37,14 +37,26 @@ public class NoteController {
     @GetMapping("")
     public ModelAndView list(@RequestParam("search") Optional<String> keyword, @PageableDefault(size = 3,page = 0) Pageable pageable){
         Page<NoteDB> noteDBs;
+        ModelAndView modelAndView=new ModelAndView("/note/list");
         if (keyword.isPresent()){
 //            noteDBs=noteService.findAllByTitleContaining(s.get(),pageable);
             noteDBs=noteService.findAllByTitleContainingOrContentContaining(keyword.get(),keyword.get(),pageable);
+            modelAndView.addObject("search","yes");
         } else {
             noteDBs=noteService.findAll(pageable);
+            modelAndView.addObject("search","no");
         }
-        ModelAndView modelAndView=new ModelAndView("/note/list");
         modelAndView.addObject("notes",noteDBs);
+        return modelAndView;
+    }
+
+    @GetMapping("/viewtype")
+    public ModelAndView viewType(@RequestParam("id") Long id){
+        Type type=typeService.findById(id);
+        Iterable<NoteDB> noteDBs=noteService.findAllByType(type);
+        ModelAndView modelAndView=new ModelAndView("/note/viewtype");
+        modelAndView.addObject("notes",noteDBs);
+        modelAndView.addObject("type",type);
         return modelAndView;
     }
 

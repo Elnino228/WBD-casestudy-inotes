@@ -10,7 +10,7 @@ public interface NoteService {
 
     NoteDB findById(Long id);
 
-    Iterable<NoteDB> findAllBytypeContaining(Type type);
+    Iterable<NoteDB> findAllByType(Type type);
 
     Page<NoteDB> findAllByTitleContaining(String title, Pageable pageable);
 

@@ -34,8 +34,8 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public Iterable<NoteDB> findAllBytypeContaining(Type type) {
-        return noteRepository.findAllBytypeContaining(type);
+    public Iterable<NoteDB> findAllByType(Type type) {
+        return noteRepository.findAllByType(type);
     }
 
     @Override
